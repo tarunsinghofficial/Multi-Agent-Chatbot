@@ -86,14 +86,14 @@ const Chat = () => {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
+        <div className="animate-spin border-primary-600 w-12 h-12 border-b-2 rounded-full"></div>
       </div>
     );
   }
 
   if (error) {
     return (
-      <div className="text-center py-12">
+      <div className="py-12 text-center">
         <p className="text-red-600">{error}</p>
         <button
           onClick={() => navigate("/projects")}
@@ -106,16 +106,16 @@ const Chat = () => {
   }
 
   return (
-    <div className="h-screen flex flex-col">
+    <div className="flex flex-col h-screen">
       {/* Header */}
-      <div className="bg-white border-b border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 bg-white border-b border-gray-200">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-4">
             <button
               onClick={() => navigate(`/projects/${id}`)}
-              className="text-gray-400 hover:text-gray-600"
+              className="hover:text-gray-600 text-gray-400"
             >
-              <ArrowLeftIcon className="h-6 w-6" />
+              <ArrowLeftIcon className="w-6 h-6" />
             </button>
             <div>
               <h1 className="text-xl font-semibold text-gray-900">
@@ -131,12 +131,12 @@ const Chat = () => {
       </div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto p-6 space-y-4">
+      <div className="flex-1 p-6 space-y-4 overflow-y-auto">
         {messages.length === 0 ? (
-          <div className="text-center py-12">
-            <div className="text-gray-400 mb-4">
+          <div className="py-12 text-center">
+            <div className="mb-4 text-gray-400">
               <svg
-                className="mx-auto h-12 w-12"
+                className="w-12 h-12 mx-auto"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -149,7 +149,7 @@ const Chat = () => {
                 />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 mb-2">
+            <h3 className="mb-2 text-lg font-medium text-gray-900">
               Start a conversation
             </h3>
             <p className="text-gray-500">
@@ -160,15 +160,15 @@ const Chat = () => {
           messages.map((message, index) => (
             <div
               key={index}
-              className={`flex ${
+              className={`flex text-black ${
                 message.role === "user" ? "justify-end" : "justify-start"
               }`}
             >
               <div
                 className={`max-w-3xl px-4 py-2 rounded-lg ${
                   message.role === "user"
-                    ? "bg-primary-600 text-white"
-                    : "bg-gray-100 text-gray-900"
+                    ? "bg-gray-200 text-black"
+                    : "bg-gray-200 text-gray-900"
                 }`}
               >
                 <div className="whitespace-pre-wrap">{message.content}</div>
@@ -187,9 +187,9 @@ const Chat = () => {
         )}
         {sending && (
           <div className="flex justify-start">
-            <div className="bg-gray-100 text-gray-900 px-4 py-2 rounded-lg">
+            <div className="px-4 py-2 text-gray-900 bg-gray-100 rounded-lg">
               <div className="flex items-center space-x-2">
-                <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-gray-600"></div>
+                <div className="animate-spin w-4 h-4 border-b-2 border-gray-600 rounded-full"></div>
                 <span>AI is typing...</span>
               </div>
             </div>
@@ -199,7 +199,7 @@ const Chat = () => {
       </div>
 
       {/* Input */}
-      <div className="bg-white border-t border-gray-200 px-6 py-4">
+      <div className="px-6 py-4 bg-white border-t border-gray-200">
         <form onSubmit={handleSendMessage} className="flex space-x-4">
           <div className="flex-1">
             <textarea
@@ -207,7 +207,7 @@ const Chat = () => {
               onChange={(e) => setNewMessage(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message here..."
-              className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
+              className="focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent w-full px-4 py-2 border border-gray-300 rounded-lg resize-none"
               rows={1}
               disabled={sending}
             />
@@ -215,12 +215,12 @@ const Chat = () => {
           <button
             type="submit"
             disabled={!newMessage.trim() || sending}
-            className="btn-primary flex items-center justify-center px-4 py-2 disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center px-4 py-2"
           >
-            <PaperAirplaneIcon className="h-5 w-5" />
+            <PaperAirplaneIcon className="w-5 h-5" />
           </button>
         </form>
-        <p className="text-xs text-gray-500 mt-2">
+        <p className="mt-2 text-xs text-gray-500">
           Press Enter to send, Shift+Enter for new line
         </p>
       </div>
@@ -229,4 +229,3 @@ const Chat = () => {
 };
 
 export default Chat;
-
